@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Aniruddha Bapu Upasana Helper (Digital Neon Edition)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- PITCH BLACK THEME STYLES (Futuristic) --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            /* True Green */
+            color: #e5e7eb;
+            position: relative;
+        }
+
+        /* Subtle Digital Grid Effect (Holographic background) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            /* Creates a fine grid pattern */
+            background-image: linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.15;
+            /* Subtle visibility */
+            animation: pulse-grid 60s linear infinite;
+            /* Slow background movement */
+        }
+
+        @keyframes pulse-grid {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+
+        .header-bg {
+            background-color: rgba(26, 26, 26, 0.8);
+            /* Semi-transparent dark header */
+            backdrop-filter: blur(5px);
+            /* Add slight blur for depth */
+            border-bottom: 1px solid #333;
+        }
+
+        .card {
+            background-color: rgba(26, 26, 26, 0.7);
+            /* Semi-transparent dark card */
+            border: 1px solid #2d2d2d;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            /* Glow on hover effect for futuristic feel */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 15px rgba(255, 119, 34, 0.3), 0 0 5px rgba(255, 255, 255, 0.1);
+            /* Subtle orange/white glow on hover */
+            transform: translateY(-4px);
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        /* Enhanced Action Card Hover Effect (Fabulous and Interactive) */
+        .action-card:hover {
+            /* Stronger, more dynamic glow */
+            box-shadow: 0 0 25px rgba(255, 119, 34, 0.8), 0 0 15px rgba(255, 255, 255, 0.3);
+            /* Scale up and slight lift for interactivity */
+            transform: scale(1.03) translateY(-2px);
+            background-color: rgba(30, 30, 30, 0.9);
+            border-color: #FF7722;
+            /* Add border highlight */
+            cursor: pointer;
+        }
+
+        /* --- BLOOM/NEON EFFECT STYLES (Sharper Neon) --- */
+        .bloom-effect-text {
+            /* Sharper neon white */
+            text-shadow: 0 0 5px rgba(200, 255, 255, 0.7), 0 0 10px rgba(200, 255, 255, 0.3);
+        }
+
+        .bloom-effect-orange {
+            /* Sharper neon orange (#FF7722) */
+            text-shadow: 0 0 8px rgba(34, 170, 255, 0.9), 0 0 15px rgba(255, 119, 34, 0.6);
+        }
+
+        /* Counter Display Digital Font */
+        .digital-display {
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 2px;
+        }
+
+        /* Progress Bar Styling */
+        .progress-bar {
+            background-color: #374151;
+            /* Dark track */
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .progress-fill {
+            background-color: #FF7722;
+            transition: width 0.5s ease-out;
+            height: 100%;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(255, 119, 34, 0.6);
+            /* Neon glow on the fill */
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #FF7722;
+            color: #1a1a1a;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn-primary:hover {
+            background-color: #e5661f;
+            box-shadow: 0 6px 20px -5px rgba(255, 119, 34, 0.7);
+            /* Stronger glow hover */
+        }
+
+        .btn-secondary {
+            background-color: #374151;
+            color: #d1d5db;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Backdrop */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content-bg {
+            background-color: #1a1a1a;
+            border: 2px solid #FF7722;
+            box-shadow: 0 0 30px rgba(255, 119, 34, 0.5);
+        }
+
+        /* Ripple Effect */
+        .ripple-container {
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+            border-radius: 9999px;
+        }
+
+        .ripple {
+            display: block;
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            transform: scale(0);
+            background: rgba(255, 255, 255, 0.5);
+            /* Semi-transparent white ripple */
+            opacity: 1;
+            animation: ripple-anim 0.6s linear;
+        }
+
+        @keyframes ripple-anim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <header class="header-bg sticky top-0 z-10 shadow-lg">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <h1 class="text-5xl font-extrabold text-white bloom-effect-text">Sadguru Shree Aniruddha Bapu</h1>
+            <p class="text-2xl mt-3 text-gray-400 bloom-effect-text">Digital Upasana Assistant</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-10">
+            <div class="card p-3 rounded-xl mb-4 md:mb-0 w-full md:w-auto">
+                <p class="text-sm text-gray-400">
+                    Mode: <span id="userIdDisplay"
+                        class="font-mono text-xs text-[#FF7722] overflow-auto block md:inline-block">Offline</span>
+                </p>
+                <p id="authStatus" class="text-xs text-green-500 mt-1">Status: Ready (Local Save)</p>
+            </div>
+            <section class="w-full md:w-2/3 md:ml-6">
+                <div class="card p-4 rounded-xl shadow-2xl flex flex-col sm:flex-row items-center justify-between">
+                    <div class="mb-2 sm:mb-0 sm:w-3/4">
+                        <h2 class="text-xl font-bold bloom-effect-text">Daily Focus</h2>
+                    </div>
+                    <button id="openFocusModal"
+                        class="btn-primary px-6 py-2.5 rounded-full font-bold text-sm shadow-xl w-full sm:w-auto flex-shrink-0 transition-transform transform hover:scale-105">
+                        Generate
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-main-heading mb-6 bloom-effect-text">Upasana Tools</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <button id="openJaapCounter"
+                    class="action-card card p-8 rounded-xl shadow-2xl text-left transform transition-all duration-300 hover:scale-[1.03]">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 text-[#FF7722] mr-4 bloom-effect-orange" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white bloom-effect-text uppercase tracking-wider">
+                            Daily Jaap Counter
+                        </h3>
+                    </div>
+                    <p class="text-gray-400 text-lg mb-4">
+                        Start your devotional counting session. Your progress is automatically saved to the browser.
+                    </p>
+                    <span
+                        class="inline-flex items-center px-4 py-2 font-semibold text-sm rounded-full bg-[#FF7722] text-[#1a1a1a] shadow-lg">
+                        Begin Chanting
+                    </span>
+                </button>
+
+                <button id="openDeveloperModal"
+                    class="action-card card p-8 rounded-xl shadow-2xl text-left transform transition-all duration-300 hover:scale-[1.03]">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 text-[#FF7722] mr-4 bloom-effect-orange" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10 20l4-16m4 4l-4 4-4-4M6 16l4 4 4-4" />
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white bloom-effect-text uppercase tracking-wider">
+                            About This Tool
+                        </h3>
+                    </div>
+                    <p class="text-gray-400 text-lg mb-4">
+                        This App was created by Bhushan Chaudhari and Ganesh Joshi
+                    </p>
+                    <span
+                        class="inline-flex items-center px-4 py-2 font-semibold text-sm rounded-full bg-gray-600 text-white shadow-lg">
+                        View Details
+                    </span>
+                </button>
+            </div>
+        </section>
+
+
+        <section class="mb-10">
+            <div class="card p-8 rounded-xl shadow-2xl">
+                <h2 class="text-3xl font-bold text-main-heading mb-4 border-b pb-2 border-gray-600 bloom-effect-text">
+                    What is Upasana?</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    With the motive of facilitating the rebirth of the beautiful concept of collective prayers in the
+                    present world, Sadguru Aniruddha Bapu has established numerous centres for sanghik Upasana
+                    (collective prayers) at many places. Today, collective prayers given by Sadguru Aniruddha Bapu are
+                    creating a devotional atmosphere in Upasana centres located at different places around the globe.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-main-heading mb-6 bloom-effect-text">Upasana Prayers & Key Resources</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div
+                    class="card p-6 rounded-xl shadow-lg flex items-center flex-col text-center sm:flex-row sm:justify-between sm:text-left">
+                    <div class="mb-3 sm:mb-0">
+                        <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Shree Aniruddha Chalisa
+                        </h3>
+                        <p class="text-sm text-gray-400">A hymn of $40$ verses in praise.</p>
+                    </div>
+                    <button id="openChalisaModal"
+                        class="btn-primary px-5 py-2.5 rounded-full font-medium text-sm shadow-md flex-shrink-0">
+                        View Text
+                    </button>
+                </div>
+
+                <div
+                    class="card p-6 rounded-xl shadow-lg flex items-center flex-col text-center sm:flex-row sm:justify-between sm:text-left">
+                    <div class="mb-3 sm:mb-0">
+                        <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Ramraksha Stotra</h3>
+                        <p class="text-sm text-gray-400">A prayer for protection from Lord Ram.</p>
+                    </div>
+                    <button id="openRamrakshaModal"
+                        class="btn-primary px-5 py-2.5 rounded-full font-medium text-sm shadow-md flex-shrink-0">
+                        View Text
+                    </button>
+                </div>
+
+                <div
+                    class="card p-6 rounded-xl shadow-lg flex items-center flex-col text-center sm:flex-row sm:justify-between sm:text-left">
+                    <div class="mb-3 sm:mb-0">
+                        <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Hanuman Chalisa</h3>
+                        <p class="text-sm text-gray-400">A hymn to Lord Hanuman.</p>
+                    </div>
+                    <button id="openHanumanModal"
+                        class="btn-primary px-5 py-2.5 rounded-full font-medium text-sm shadow-md flex-shrink-0">
+                        View Text
+                    </button>
+                </div>
+
+                <div
+                    class="card p-6 rounded-xl shadow-lg flex items-center flex-col text-center sm:flex-row sm:justify-between sm:text-left">
+                    <div class="mb-3 sm:mb-0">
+                        <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Shiva Panchakshari Stotra
+                        </h3>
+                        <p class="text-sm text-gray-400">Hymn on the five-syllable mantra.</p>
+                    </div>
+                    <button id="openPanchaksharModal"
+                        class="btn-primary px-5 py-2.5 rounded-full font-medium text-sm shadow-md flex-shrink-0">
+                        View Text
+                    </button>
+                </div>
+
+                <a href="https://aniruddha.tv/" target="_blank"
+                    class="card p-6 rounded-xl shadow-lg flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4 text-[#FF7722]" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                            <polyline points="17 2 12 7 7 2"></polyline>
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white bloom-effect-card-title">LIVE TV</h3>
+                            <p class="text-sm text-gray-400">Official live broadcast channel.</p>
+                        </div>
+                    </div>
+                    <span class="btn-primary px-4 py-1.5 rounded-full text-sm shadow-md flex-shrink-0">
+                        Watch
+                    </span>
+                </a>
+
+                <a href="https://www.google.com/search?q=%E0%A4%89%E0%A4%AA%E0%A4%BE%E0%A4%B8%E0%A4%A8%E0%A4%BE+%E0%A4%AA%E0%A5%81%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE+(Marathi)+text"
+                    target="_blank" class="card p-6 rounded-xl shadow-lg flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4 text-[#FF7722]" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white bloom-effect-card-title">उपासना पुस्तिका
+                                (Marathi)</h3>
+                            <p class="text-sm text-gray-400">Find the text for daily rituals.</p>
+                        </div>
+                    </div>
+                    <span class="btn-primary px-4 py-1.5 rounded-full text-sm shadow-md flex-shrink-0">
+                        View
+                    </span>
+                </a>
+
+                <a href="https://www.google.com/search?q=Shree+Aniruddha+Bapu+Wallpapers+official" target="_blank"
+                    class="card p-6 rounded-xl shadow-lg flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4 text-[#FF7722]" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M12 20h.01"></path>
+                            <path d="M18.8 13.4V12a6 6 0 0 0-5.8-6l-3.2-.2A6 6 0 0 0 6.6 8.8l-.2 3.2a6 6 0 0 0 6 6h1.4">
+                            </path>
+                            <path d="M22 13h-4"></path>
+                            <path d="M15 17l-3 3 3 3"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Bapu's Wallpapers</h3>
+                            <p class="text-sm text-gray-400">Official digital pictures.</p>
+                        </div>
+                    </div>
+                    <span class="btn-primary px-4 py-1.5 rounded-full text-sm shadow-md flex-shrink-0">
+                        Search
+                    </span>
+                </a>
+
+                <a href="https://sadguruaniruddhabapu.com/shree-aniruddha-bapu/" target="_blank"
+                    class="card p-6 rounded-xl shadow-lg flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4 text-[#FF7722]" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white bloom-effect-card-title">About Bapu</h3>
+                            <p class="text-sm text-gray-400">Read the official biography.</p>
+                        </div>
+                    </div>
+                    <span class="btn-primary px-4 py-1.5 rounded-full text-sm shadow-md flex-shrink-0">
+                        Read
+                    </span>
+                </a>
+
+                <a href="https://aniruddhafoundation.com/" target="_blank"
+                    class="card p-6 rounded-xl shadow-lg flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4 text-[#FF7722]" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M22 10s-1.7 1.7-4 0c-2.3 2.3-4 0-6 0-2.3 2.3-4 0-6 0-2.3 2.3-4 0-4 0"></path>
+                            <path d="M12 2v20"></path>
+                            <path d="M12 7h10"></path>
+                            <path d="M12 17h-10"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white bloom-effect-card-title">Upasana Foundation</h3>
+                            <p class="text-sm text-gray-400">Official organization website.</p>
+                        </div>
+                    </div>
+                    <span class="btn-primary px-4 py-1.5 rounded-full text-sm shadow-md flex-shrink-0">
+                        Visit
+                    </span>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 mt-12 header-bg">
+        <p class="text-gray-500 text-sm">Ambadnya. For devotional purposes only.</p>
+    </footer>
+
+    <div id="jaapModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-sm p-8 rounded-xl shadow-2xl text-center">
+            <h2 class="text-3xl font-bold mb-2 text-white bloom-effect-text">Daily Chanting Counter</h2>
+            <p class="text-sm text-gray-400 mb-6">Goal: 108 Repetitions</p>
+
+            <div id="counterDisplay"
+                class="text-8xl font-extrabold text-[#FF7722] mb-6 p-4 bg-[#0a0a0a] rounded-lg border border-gray-700 digital-display bloom-effect-orange">
+                0
+            </div>
+
+            <div class="mb-8">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%;"></div>
+                </div>
+                <p id="progressText" class="text-sm text-gray-400 mt-2">0% Complete</p>
+            </div>
+
+            <div class="flex flex-col space-y-4">
+                <div class="ripple-container">
+                    <button id="incrementButton"
+                        class="btn-primary text-3xl font-bold py-7 rounded-full shadow-2xl w-full">
+                        Tap to Count
+                    </button>
+                </div>
+                <button id="resetButton" class="btn-secondary font-medium py-3 rounded-full w-full">
+                    Reset Counter
+                </button>
+                <button id="closeModalButton" class="btn-secondary font-medium py-3 rounded-full w-full">
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="focusModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-md p-8 rounded-xl shadow-2xl">
+            <h2 class="text-3xl font-bold mb-4 text-[#FF7722] text-center bloom-effect-orange">Daily Focus</h2>
+            <div id="focusContent"
+                class="text-center text-lg text-gray-300 min-h-[100px] flex items-center justify-center bg-[#0a0a0a] p-4 rounded-lg border border-gray-700">
+                <p id="focusMessage">Tap "Generate Focus" to receive your daily message.</p>
+            </div>
+            <button id="generateFocusButton"
+                class="btn-primary w-full font-bold py-3 mt-6 rounded-full transition-transform transform hover:scale-[1.01]">
+                Generate Focus
+            </button>
+            <button id="closeFocusModal" class="btn-secondary w-full font-medium py-3 mt-3 rounded-full">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div id="developerModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-sm p-8 rounded-xl shadow-2xl text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white bloom-effect-text">About Developer</h2>
+            <p class="text-gray-300 mb-6">
+                Contact Developer
+                Gmail: bhushanchaudhari626@gmail.com.
+                Mobile: +91 8459388501
+            </p>
+            <p class="text-gray-400 text-sm">
+                *The Jaap counter now uses **Local Storage** to save your progress directly in your browser!*
+            </p>
+            <button id="closeDeveloperModal" class="btn-secondary font-medium py-3 px-6 mt-6 rounded-full">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div id="chalisaModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl flex flex-col">
+            <h2 class="text-3xl font-bold mb-6 text-white bloom-effect-text text-center">श्रीअनिरुद्ध चलीसा</h2>
+
+            <div class="max-h-[60vh] overflow-y-auto bg-[#0a0a0a] p-4 rounded-lg border border-gray-700 text-center">
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb;">
+श्रीअनिरुद्ध चलीसा
+
+दोहा
+
+श्रीसद्गुरुसुमिरनबल
+सब कछु करत सुहाई
+अनिरुद्ध नाम की रटन लगाई
+टूट गई दुख की डोरी ।।
+
+जय अनिरुद्ध पूरण अवतारा
+जय गोविंद परमसुखधामा ।।१।।
+
+जय नंदारमणा बलवंता
+रं रं रं रं जय अभिरामा ।।२।।
+
+रात दिवस अनिरुध धुन गाँऊ
+साथ में लायो सुचितसो दाऊ।।३।।
+
+सब रिषिजन मिल जपत महेशु
+गोपगोपीजन गात रमेशु ।।४।।
+
+कातिर्कमास की पूरणमासी
+प्रगट भयो जै जै त्रिपुरारि ।।५।।
+
+पूरणशक्ति सर्व सुखखानी
+दयाकृपाकर बल का दानी ।।६।।
+
+गोपिनाथजी दर्शन पावत
+श्रीविठ्टल के चरणा लागत ।।७।।
+
+स्वामीकृपा से जप रट चालत
+बंश तुम्हारे है प्रभु आवत ।।८।।
+
+पाय आशिषा वृद्ध अपारा
+कहत कहानी निज कुलदारा ।।९।।
+
+कुल अपने है विठ्ठल आवत
+निरगुण से जब सगुण प्रकाशत ।।१०।।
+
+श्यामल रूप मुनिजन सेवि
+द्वार खड़ै नौ निधि की देवि ।।११।।
+
+भाल चंद्रमा सोभत नीका
+सहस सूरज परभा हो फीका ।।१२।।
+
+भगत ने जब ही नाम पुकारा
+तब ही बापू दुःख निवारा ।।१३।।
+
+क्रिपा महान तुम सम नाही
+राजा रंक भेद नहीं पाई ।।१४।।
+
+साईनिवास में परगट ग्वाला
+हेमाड्या की अंतिम ज्वाला ।।१५।।
+
+पूजन मीनाभाभी कीन्हा
+सद्गुरुरूप में दरसन दीन्हा ।।१६।।
+
+सुरगणसहित इंद्र करी वंदन
+भवभयनाशन खलदलमर्दन ।।१७।।
+
+सूरजवंशी राम धराधर
+चक्रपाणि हरि सद्गुण आगर ।।१८।।
+
+नाम की सेज प्यार की माला
+िèहदय सिंहासन बसत अकाला ।।१९।।
+
+पुरुषार्था कलजुग भूल जाई
+जुईगाँव बस काज दिखाई ।।२०।।
+
+पंचपुरुष श्रद्धा बतलाई
+
+धरमचक्र रख शुरू लड़ाई ।।२१।।
+
+भारतवास की गौ जो माता
+तुम बन खड़े गौ के त्राता ।।२२।।
+
+नाश अधर्मा पालन धर्मा
+यही कारण अवतारण वर्मा ।।२३।।
+
+धरम ते भगति, जोग ही नामा
+ज्ञान ते दर्शन अनिरुधधामा ।।२४।।
+
+राम विराम सुखद अभिरामा
+कलिमलभंजक अनिरुध नामा ।।२५।।
+
+जगत में एक प्राणपति बापु
+तासु बिमुख किमी लह विश्रामु ।।२६।।
+
+बापु नामसम बल कछु नाही
+रिपु बल नाश करई छनमाही ।।२७।।
+
+महापापी जब नाम सुमिरही
+जोर अपार दुखसागर तरही ।।२८।।
+
+निज इच्छा अनिरुध अवतरइ
+धरम प्रेम आनंदन लागी ।।२९।।
+
+सेवा करबे वो बड़ भागी
+चरम कृपालु बापु अनुरागी ।।३०।।
+
+बापु नामबिनु करम अधूरा
+श्रीदर्शन बिनु अन्न ही जहरा ।।३१।।
+
+कोई मनोरथ बड़ मन माही
+प्रयास करत पर फलवत नाही ।।३२।।
+
+धीर धरहु ना होऊ उदासा
+सब मिली जाऊ अनिरुधपासा ।।३3।।
+
+अनिरुध नाम प्रफुल्लित गाता
+टरत ही पीड़ रोग दूर जाता ।।३४।।
+
+देख चरण सुमंगलमूला
+जानऊँ बापु भगति अनुकूला ।।३५।।
+
+परबत सम बड़ौ मम भागु
+घोर पाप मालिक अनुरागु ।।३६।।
+
+सदैव सरनागत हितकारी
+करि रच्छण भवभयमलहारी ।।३७।।
+
+बापु भगति को कहँऊ बखानी
+सहज मार्ग जश पाव ही प्रानी ।।३८।।
+
+अनिरुध गावत पुलक सरीरा
+गद्गद् बानी अँखी बह नीरा ।।३९।।
+
+बापु चरणधूली मोहे अतिप्रेमा
+तन मन धन सेवा द्रिढ़ नेमा ।।४०।।
+
+दोहा
+अनिरुध चलीसा स्तोत्र यह इक मंत्र महान अपार
+सर्व कामना पूरन प्रति व्यर्थ बचन ना जाय ।।
+पिपा निरबुद्ध सहज जड, ना जानै जोग तप नेम
+बापु क्रिपा नहि पाऊँ तसि, जसि चरणन्ही प्रेम ।।
+नंदापति अनिरुद्ध की जय।
+चक्रधर चिदानंद की जय।
+बोलो रे भाई दाऊ सुचित की जय जय जय।
+
+।। इति आद्यपिपाविरचितं श्रीअनिरुद्धचलीसास्तोत्रं सम्पूर्णम्।।
+                </pre>
+            </div>
+
+            <button id="closeChalisaModal"
+                class="btn-secondary font-medium py-3 px-6 mt-6 rounded-full w-full max-w-xs mx-auto">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div id="ramrakshaModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl flex flex-col">
+            <h2 class="text-3xl font-bold mb-6 text-white bloom-effect-text text-center">श्री रामरक्षा स्तोत्र</h2>
+
+            <div class="max-h-[60vh] overflow-y-auto bg-[#0a0a0a] p-4 rounded-lg border border-gray-700 text-center">
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb;">
+श्रीगणेशायनम: ।
+अस्य श्रीरामरक्षास्तोत्रमन्त्रस्य ।
+बुधकौशिक ऋषि: ।
+श्रीसीतारामचंद्रोदेवता ।
+अनुष्टुप् छन्द: ।
+सीता शक्ति: ।
+श्रीमद्‌हनुमान् कीलकम् ।
+श्रीसीतारामचंद्रप्रीत्यर्थे जपे विनियोग: ॥
+॥ अथ ध्यानम् ॥
+ध्यायेदाजानुबाहुं धृतशरधनुषं बद्धपद्‌मासनस्थं । पीतं वासोवसानं नवकमलदलस्पर्धिनेत्रं प्रसन्नम् ॥
+वामाङ्‌कारूढ-सीता-मुखकमल-मिलल्लोचनं नीरदाभं । नानालङ्‌कारदीप्तं दधतमुरुजटामण्डनं रामचंद्रम् ॥
+॥ इति ध्यानम् ॥
+चरितं रघुनाथस्य शतकोटिप्रविस्तरम् । एकैकमक्षरं पुंसां महापातकनाशनम् ॥१॥
+ध्यात्वा नीलोत्पलश्यामं रामं राजीवलोचनम् । जानकीलक्ष्मणोपेतं जटामुकुटमण्डितम् ॥२॥
+सासितूणधनुर्बाणपाणिं नक्तं चरान्तकम् । स्वलीलया जगत्त्रातुमाविर्भूतमजं विभुम् ॥३॥
+रामरक्षां पठेत्प्राज्ञ: पापघ्नीं सर्वकामदाम् । शिरो मे राघव: पातु भालं दशरथात्मज: ॥४॥
+कौसल्येयो दृशौ पातु विश्वामित्रप्रिय: श्रुती । घ्राणं पातु मखत्राता मुखं सौमित्रिवत्सल: ॥५॥
+जिव्हां विद्यानिधि: पातु कण्ठं भरतवंदित: । स्कन्धौ दिव्यायुध: पातु भुजौ भग्नेशकार्मुक: ॥६॥
+करौ सीतापति: पातु हृदयं जामदग्न्यजित् । मध्यं पातु खरध्वंसी नाभिं जाम्बवदाश्रय: ॥७॥
+सुग्रीवेश: कटी पातु सक्थिनी हनुमत्प्रभु: । ऊरू रघुत्तम: पातु रक्ष:कुलविनाशकृत् ॥८॥
+जानुनी सेतुकृत्पातु जङ्‌घे दशमुखान्तक: । पादौ बिभीषणश्रीद: पातु रामोSखिलं वपु: ॥९॥
+एतां रामबलोपेतां रक्षां य: सुकृती पठॆत् । स चिरायु: सुखी पुत्री विजयी विनयी भवेत् ॥१०॥
+पातालभूतलव्योम चारिणश्छद्‌मचारिण: । न द्र्ष्टुमपि शक्तास्ते रक्षितं रामनामभि: ॥११॥
+रामेति रामभद्रेति रामचंद्रेति वा स्मरन् । नरो न लिप्यते पापै भुक्तिं मुक्तिं च विन्दति ॥१2॥
+जगज्जेत्रैकमन्त्रेण रामनाम्नाभिरक्षितम् । य: कण्ठे धारयेत्तस्य करस्था: सर्वसिद्धय: ॥१३॥
+वज्रपंजरनामेदं यो रामकवचं स्मरेत् । अव्याहताज्ञ: सर्वत्र लभते जयमंगलम् ॥१४॥
+आदिष्टवान् यथा स्वप्ने रामरक्षामिमां हर: । तथा लिखितवान् प्रात: प्रबुद्धो बुधकौशिक: ॥१५॥
+आराम: कल्पवृक्षाणां विराम: सकलापदाम् । अभिरामस्त्रिलोकानां राम: श्रीमान् स न: प्रभु: ॥१६॥
+तरुणौ रूपसंपन्नौ सुकुमारौ महाबलौ । पुण्डरीकविशालाक्षौ चीरकृष्णाजिनाम्बरौ ॥१७॥
+फलमूलशिनौ दान्तौ तापसौ ब्रह्मचारिणौ । पुत्रौ दशरथस्यैतौ भ्रातरौ रामलक्ष्मणौ ॥१८॥
+शरण्यौ सर्वसत्वानां श्रेष्ठौ सर्वधनुष्मताम् । रक्ष:कुलनिहन्तारौ त्रायेतां नो रघुत्तमौ ॥१९॥
+आत्तसज्जधनुषा विषुस्पृशा वक्षया शुगनिषङ्ग सङि‌गनौ । रक्षणाय मम रामलक्ष्मणावग्रत: पथि सदैव गच्छताम् ॥२०॥
+संनद्ध: कवची खड्‌गी चापबाणधरो युवा । गच्छन्‌ मनोरथोSस्माकं राम: पाту सलक्ष्मण: ॥२१॥
+रामो दाशरथि: शूरो लक्ष्मणानुचरो बली । काकुत्स्थ: पुरुष: पूर्ण: कौसल्येयो रघुत्तम: ॥२२॥
+वेदान्तवेद्यो यज्ञेश: पुराणपुरुषोत्तम: । जानकीवल्लभ: श्रीमानप्रमेयपराक्रम: ॥२३॥
+इत्येतानि जपेन्नित्यं मद्‌भक्त: श्रद्धयान्वित: । अश्वमेधाधिकं पुण्यं संप्राप्नोति न संशय: ॥२४॥
+रामं दूर्वादलश्यामं पद्‌माक्षं पीतवाससम् । स्तुवन्ति नामभिर्दिव्यैर्न ते संसारिणो नर: ॥२५॥
+रामं लक्ष्मण-पूर्वजं रघुवरं सीतापतिं सुंदरम् । काकुत्स्थं करुणार्णवं गुणनिधिं विप्रप्रियं धार्मिकम् ।
+राजेन्द्रं सत्यसंधं दशरथनयं श्यामलं शान्तमूर्तिम् । वन्दे लोकभिरामं रघुकुलतिलकं राघवं रावणारिम् ॥२६॥
+रामाय रामभद्राय रामचंद्राय वेधसे । रघुनाथाय नाथाय सीताया: पतये नम: ॥२७॥
+श्रीराम राम रघुनन्दन राम राम । श्रीराम राम भरताग्रज राम राम ।
+श्रीराम राम रणकर्कश राम राम । श्रीराम राम शरणं भव राम राम ॥२८॥
+श्रीरामचन्द्रचरणौ मनसा स्मरामि । श्रीरामचन्द्रचरणौ वचसा गृणामि ।
+श्रीरामचन्द्रचरणौ शिरसा नमामि । श्रीरामचन्द्रचरणौ शरणं प्रपद्ये ॥२९॥
+माता रामो मत्पिता रामचन्द्र: । स्वामी रामो मत्सखा रामचन्द्र: ।
+सर्वस्वं मे रामचन्द्रो दयालुर् । नान्यं जाने नैव जाने न जाने ॥३०॥
+दक्षिणे लक्ष्मणो यस्य वामे च जनकात्मजा । पुरतो मारुतिर्यस्य तं वन्दे रघुनंदनम् ॥३१॥
+लोकाभिरामं रणरङ्‌गधीरं राजीवनेत्रं रघुवंशनाथम् । कारुण्यरूपं करुणाकरन्तं श्रीरामचन्द्रं शरणं प्रपद्ये ॥३२॥
+मनोजवं मारुततुल्यवेगं जितेन्द्रियं बुद्धिमतां वरिष्ठम् । वातात्मजं वानरयूथमुख्यं श्रीरामदूतं शरणं प्रपद्ये ॥३३॥
+कूजन्तं राम-रामेति मधुरं मधुराक्षरम् ।आरुह्य कविताशाखां वन्दे वाल्मीकिकोकिलम् ॥३४॥
+आपदामपहर्तारं दातारं सर्वसंपदाम् । लोकाभिरामं श्रीरामं भूयो भूयो नमाम्यहम् ॥३५॥
+भर्जनं भवबीजानामर्जनं सुखसंपदाम् । तर्जनं यमदूतानां रामरामेति गर्जनम् ॥३६॥
+रामो राजमणि: सदा विजयते रामं रमेशं भजे । रामेणाभिहता निशाचरचमू रामाय तस्मै नम: ।
+रामान्नास्ति परायणं परतरं रामस्य दासोऽस्म्यहम् । रामे चित्तलय: सदा भवतु मे भो राम मामुद्धर ॥३७॥
+राम रामेति रामेति रमे रामे मनोरमे । सहस्रनाम तत्तुल्यं रामनाम वरानने ॥३८॥
+इति श्रीबुधकौशिकविरचितं श्रीरामरक्षास्तोत्रं संपूर्णम् ॥ 
+॥ श्री सीतारामचंद्रार्पणमस्तु ॥
+                </pre>
+            </div>
+
+            <button id="closeRamrakshaModal"
+                class="btn-secondary font-medium py-3 px-6 mt-6 rounded-full w-full max-w-xs mx-auto">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div id="hanumanModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl flex flex-col">
+            <h2 class="text-3xl font-bold mb-6 text-white bloom-effect-text text-center">श्री हनुमान चालीसा</h2>
+
+            <div class="max-h-[60vh] overflow-y-auto bg-[#0a0a0a] p-4 rounded-lg border border-gray-700 text-center">
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb;">
+श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ।
+बरनउँ रघुबर बिमल जसु जो दायकु फल चारि ॥
+बुद्धिहीन तनु जानिके सुमिरौं पवन-कुमार ।
+बल बुधि बिद्या देहु मोहिं हरहु कलेस बिकार ॥
+
+जय हनुमान ज्ञान गुन सागर ।
+जय कपीस तिहुँ लोक उजागर ॥
+राम दूत अतुलित बल धामा ।
+अंजनि-पुत्र पवनसुत नामा ॥
+महाबीर बिक्रम बजरंगी ।
+कुमति निवार सुमति के संगी ॥
+कंचन बरन बिराज सुबेसा ।
+कानन कुंडल कुंचित केसा ॥
+हाथ बज्र औ ध्वजा बिराजै ।
+काँधे मूँज जनेऊ साजै ॥
+संकर सुवन केसरीनंदन ।
+तेज प्रताप महा जग बंदन ॥
+विद्यावान गुनी अति चातुर ।
+राम काज करिबे को आतुर ॥
+प्रभु चरित्र सुनिबे को रसिया ।
+राम लखन सीता मन बसिया ॥
+सूक्ष्म रूप धरि सियहिं दिखावा ।
+बिकट रूप धरि लंक जरावा ॥
+भीम रूप धरि असुर सँहारे ।
+रामचंद्र के काज सँवारे ॥
+लाय सजीवन लखन जियाये ।
+श्रीरघुबीर हरषि उर लाये ॥
+रघुपति कीन्ही बहुत बड़ाई ।
+तुम मम प्रिय भरतहि सम भाई ॥
+सहस बदन तुम्हरो जस गावैं ।
+अस कहि श्रीपति कंठ लगावैं ॥
+सनकादिक ब्रह्मादि मुनीसा ।
+नारद सारद सहित अहीसा ॥
+जम कुबेर दिगपाल जहाँ ते ।
+कबि कोबिद कहि सके कहाँ ते ॥
+तुम उपकार सुग्रीवहिं कीन्हा ।
+राम मिलाय राज पद दीन्हा ॥
+तुम्हरो मंत्र बिभीषन माना ।
+लंकेस्वर भए सब जग जाना ॥
+जुग सहस्र जोजन पर भानू ।
+लील्यो ताहि मधुर फल जानू ॥
+प्रभु मुद्रिका मेलि मुख माहीं ।
+जलधि लाँघि गये अचरज नाहीं ॥
+दुर्गम काज जगत के जेते ।
+सुगम अनुग्रह तुम्हरे तेते ॥
+राम दुआरे तुम रखवारे ।
+होत न आज्ञा बिनु पैसारे ॥
+सब सुख लहै तुम्हारी सरना ।
+तुम रक्षक काहू को डर ना ॥
+आपन तेज सम्हारो आपै ।
+तीनों लोक हाँक तें काँपै ॥
+भूत पिसाच निकट नहिं आवै ।
+महाबीर जब नाम सुनावै ॥
+नासै रोग हरै सब पीरा ।
+जपत निरंतर हनुमत बीरा ॥
+संकट तें हनुमान छुड़ावै ।
+मन क्रम बचन ध्यान जो लावै ॥
+सब पर राम तपस्वी राजा ।
+तिन के काज सकल तुम साजा ॥
+और मनोरथ जो कोई लावै ।
+सोइ अमित जीवन फल पावै ॥
+चारों जुग परताप तुम्हारा ।
+है परसिद्ध जगत उजियारा ॥
+साधु संत के तुम रखवारे ।
+असुर निकंदन राम दुलारे ॥
+अष्ट सिद्धि नौ निधि के दाता ।
+अस बर दीन जानकी माता ॥
+राम रसायन तुम्हरे पासा ।
+सदा रहो रघुपति के दासा ॥
+तुम्हरे भजन राम को पावै ।
+जनम जनम के दुख बिसरावै ॥
+अंत काल रघुबर पुर जाई ।
+जहाँ जन्म हरि-भक्त कहाई ॥
+और देवता चित्त न धरई ।
+हनुमत सेइ सर्ब सुख करई ॥
+संकट कटै मिटै सब पीरा ।
+जो सुमिरै हनुमत बलबीरा ॥
+जै जै जै हनुमान गोसाईं ।
+कृपा करहु गुरुदेव की नाईं ॥
+जो सत बार पाठ कर कोई ।
+छूटहि बंदि महा सुख होई ॥
+जो यह पढ़ै हनुमान चालीसा ।
+होय सिद्धि साखी गौरीसा ॥
+तुलसीदास सदा हरि चेरा ।
+कीजै नाथ हृदय महँ डेरा ॥
+
+दोहा
+पवन तनय संकट हरन मंगल मूरति रूप ।
+राम लखन सीता सहित हृदय बसहु सुर भूप ॥
+                </pre>
+            </div>
+
+            <button id="closeHanumanModal"
+                class="btn-secondary font-medium py-3 px-6 mt-6 rounded-full w-full max-w-xs mx-auto">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div id="panchaksharModal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden">
+        <div class="modal-content-bg w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl flex flex-col">
+            <h2 class="text-3xl font-bold mb-6 text-white bloom-effect-text text-center">शिव पंचाक्षर स्तोत्र</h2>
+
+            <div class="max-h-[60vh] overflow-y-auto bg-[#0a0a0a] p-4 rounded-lg border border-gray-700">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+नागेन्द्रहाराय त्रिलोचनाय
+भस्माङ्गरागाय महेश्वराय ।
+नित्याय शुद्धाय दिगम्बराय
+तस्मै नकाराय नमः शिवाय
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+वे जिनके पास साँपों का राजा उनकी माला के रूप में है, और जिनकी तीन आँखें हैं,
+जिनके शरीर पर पवित्र राख मली हुई है और जो महान प्रभु है,
+वे जो शाश्वत है, जो पूर्ण पवित्र हैं और चारों दिशाओं को
+जो अपने वस्त्रों के रूप में धारण करते हैं,
+उस शिव को नमस्कार, जिन्हें शब्दांश "न" द्वारा दर्शाया गया है
+                </pre>
+
+                <hr style="border-color: #333; margin: 20px 0;">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+मन्दाकिनीसलिलचन्दनचर्चिताय
+नन्दीश्वरप्रमथनाथमहेश्वराय ।
+मन्दारपुष्पबहुपुष्पसुपूजिताय
+तस्मै मकाराय नमः शिवाय
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+वे जिनकी पूजा मंदाकिनी नदी के जल से होती है और चंदन का लेप लगाया जाता है,
+वे जो नंदी के और भूतों-पिशाचों के स्वामी हैं, महान भगवान,
+वे जो मंदार और कई अन्य फूलों के साथ पूजे जाते हैं,
+उस शिव को प्रणाम, जिन्हें शब्दांश "म" द्वारा दर्शाया गया है
+                </pre>
+
+                <hr style="border-color: #333; margin: 20px 0;">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+शिवाय गौरीवदनाब्जबृंदा
+सूर्याय दक्षाध्वरनाशकाय ।
+श्रीनीलकण्ठाय वृषध्वजाय
+तस्मै शिकाराय नमः शिवाय
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+वे जो शुभ है और जो नए उगते सूरज की तरह है, जिनसे गौरी का चेहरा खिल उठता है,
+वे जो दक्ष के यज्ञ के संहारक हैं,
+वे जिनका कंठ नीला है, और जिनके प्रतीक के रूप में बैल है,
+उस शिव को नमस्कार, जिन्हें शब्दांश "शि" द्वारा दर्शाया गया है
+                </pre>
+
+                <hr style="border-color: #333; margin: 20px 0;">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+वशिष्ठकुम्भोद्भवगौतमार्यमूनीन्द्र देवार्चिता शेखराय ।
+चन्द्रार्कवैश्वानरलोचनाय
+तस्मै वकाराय नमः शिवाय
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+वे जो श्रेष्ठ और सबसे सम्मानित संतों - वशिष्ट, अगस्त्य और गौतम, और देवताओं द्वारा भी पूजित है, और जो ब्रह्मांड का मुकुट हैं,
+वे जिनकी चंद्रमा, सूर्य और अग्नि तीन आंखें हों,
+उस शिव को नमस्कार, जिन्हें शब्दांश "वा" द्वारा दर्शाया गया है
+                </pre>
+
+                <hr style="border-color: #333; margin: 20px 0;">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+यज्ञस्वरूपाय जटाधराय
+पिनाकहस्ताय सनातनाय ।
+दिव्याय देवाय दिगम्बराय
+तस्मै यकाराय नमः शिवाय
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+वे जो यज्ञ (बलिदान) का अवतार है और जिनकी जटाएँ हैं,
+जिनके हाथ में त्रिशूल है और जो शाश्वत हैं,
+वे जो दिव्य हैं, जो चमकीला हैं, और चारों दिशाएँ जिनके वस्त्र हैं,
+उस शिव को नमस्कार, जिन्हें शब्दांश "य" द्वारा दर्शाया गया है
+                </pre>
+
+                <hr style="border-color: #333; margin: 20px 0;">
+
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 2.2rem; color: #e5e7eb; text-align: center;">
+पञ्चाक्षरमिदं पुण्यं यः पठेच्छिवसंनिधौ ।
+शिवलोकमावाप्नोति शिवेन सह मोदते
+                </pre>
+                <pre
+                    style="white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.8rem; color: #c7c7c7; text-align: left; margin-top: 10px; padding: 10px; background: #111; border-radius: 5px;">
+जो शिव के समीप इस पंचाक्षर का पाठ करते हैं,
+वे शिव के निवास को प्राप्त करेंगे और आनंद लेंगे।
+                </pre>
+            </div>
+
+            <button id="closePanchaksharModal"
+                class="btn-secondary font-medium py-3 px-6 mt-6 rounded-full w-full max-w-xs mx-auto">
+                Close
+            </button>
+
+            <script>
+                // --- OFFLINE LOCAL STORAGE IMPLEMENTATION ---
+
+                // Define the key for storing the count in the browser's local storage
+                const STORAGE_KEY = 'dailyJaapCount';
+                const TARGET_COUNT = 108; // Daily Jaap goal
+
+                let count = 0;
+
+                // --- DOM Elements ---
+                const openJaapCounter = document.getElementById('openJaapCounter');
+                const jaapModal = document.getElementById('jaapModal');
+                const closeModalButton = document.getElementById('closeModalButton');
+                const incrementButton = document.getElementById('incrementButton');
+                const resetButton = document.getElementById('resetButton');
+                const counterDisplay = document.getElementById('counterDisplay');
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                const openFocusModal = document.getElementById('openFocusModal');
+                const focusModal = document.getElementById('focusModal');
+                const closeFocusModal = document.getElementById('closeFocusModal');
+                const generateFocusButton = document.getElementById('generateFocusButton');
+                const focusMessage = document.getElementById('focusMessage');
+                const openDeveloperModal = document.getElementById('openDeveloperModal');
+                const developerModal = document.getElementById('developerModal');
+                const closeDeveloperModal = document.getElementById('closeDeveloperModal');
+
+                // --- Chalisa Modal Elements ---
+                const openChalisaModal = document.getElementById('openChalisaModal');
+                const chalisaModal = document.getElementById('chalisaModal');
+                const closeChalisaModal = document.getElementById('closeChalisaModal');
+
+                // --- Ramraksha Modal Elements ---
+                const openRamrakshaModal = document.getElementById('openRamrakshaModal');
+                const ramrakshaModal = document.getElementById('ramrakshaModal');
+                const closeRamrakshaModal = document.getElementById('closeRamrakshaModal');
+
+                // --- Hanuman Modal Elements ---
+                const openHanumanModal = document.getElementById('openHanumanModal');
+                const hanumanModal = document.getElementById('hanumanModal');
+                const closeHanumanModal = document.getElementById('closeHanumanModal');
+
+                // --- Panchakshar Modal Elements ---
+                const openPanchaksharModal = document.getElementById('openPanchaksharModal');
+                const panchaksharModal = document.getElementById('panchaksharModal');
+                const closePanchaksharModal = document.getElementById('closePanchaksharModal');
+
+                // --- Core Local Storage Functions ---
+
+                function loadCount() {
+                    try {
+                        const savedCount = localStorage.getItem(STORAGE_KEY);
+                        // Check if the saved value is a valid number, otherwise default to 0
+                        count = savedCount !== null && !isNaN(parseInt(savedCount)) ? parseInt(savedCount) : 0;
+                    } catch (e) {
+                        console.error("Error loading from localStorage:", e);
+                        count = 0; // Fallback to 0 if storage fails
+                    }
+                    updateDisplay();
+                }
+
+                function saveCount() {
+                    try {
+                        localStorage.setItem(STORAGE_KEY, count.toString());
+                    } catch (e) {
+                        console.error("Error saving to localStorage:", e);
+                    }
+                }
+
+                // --- Utility Functions ---
+
+                function updateDisplay() {
+                    counterDisplay.textContent = count;
+                    updateProgress();
+                }
+
+                function openModal(modal) {
+                    modal.classList.remove('hidden');
+                }
+
+                function closeModal(modal) {
+                    modal.classList.add('hidden');
+                }
+
+                function updateProgress() {
+                    const percentage = Math.min(100, (count / TARGET_COUNT) * 100);
+                    progressFill.style.width = `${percentage}%`;
+                    progressText.textContent = `${Math.round(percentage)}% Complete (${count}/${TARGET_COUNT})`;
+
+                    const modalContent = jaapModal.querySelector('.modal-content-bg');
+                    let existingCongrats = modalContent.querySelector('.celebration-message');
+
+                    if (count >= TARGET_COUNT) {
+                        progressText.textContent = `Goal Reached! (${count}/${TARGET_COUNT})`;
+                        if (!existingCongrats) {
+                            const congrats = document.createElement('p');
+                            congrats.className = 'celebration-message text-sm font-bold text-[#FF7722] mt-4 bloom-effect-orange';
+                            congrats.textContent = '|| Ambadnya! You have completed your goal. ||';
+                            modalContent.appendChild(congrats);
+                        }
+                    } else {
+                        if (existingCongrats) existingCongrats.remove();
+                    }
+                }
+
+                function rippleEffect(event, button) {
+                    const circle = document.createElement('span');
+                    const diameter = Math.max(button.clientWidth, button.clientHeight);
+                    const radius = diameter / 2;
+
+                    circle.style.width = circle.style.height = `${diameter}px`;
+                    // Calculate relative position of click/touch
+                    let x, y;
+                    if (event.touches) { // For touch events
+                        const touch = event.touches[0] || event.changedTouches[0];
+                        x = touch.clientX;
+                        y = touch.clientY;
+                    } else { // For mouse events
+                        x = event.clientX;
+                        y = event.clientY;
+                    }
+
+                    const rect = button.getBoundingClientRect();
+                    circle.style.left = `${x - rect.left - radius}px`;
+                    circle.style.top = `${y - rect.top - radius}px`;
+
+                    circle.classList.add('ripple');
+
+                    const rippleContainer = button.closest('.ripple-container');
+                    if (rippleContainer) {
+                        // Ensure only one ripple animation runs at a time
+                        Array.from(rippleContainer.querySelectorAll('.ripple')).forEach(r => r.remove());
+                        rippleContainer.appendChild(circle);
+                        // Remove the element after animation to clean up DOM
+                        circle.addEventListener('animationend', () => circle.remove());
+                    }
+                }
+
+                function incrementCount(event) {
+                    count++;
+                    updateDisplay();
+                    saveCount(); // Immediate local save
+
+                    // Visual feedback
+                    rippleEffect(event, incrementButton);
+                }
+
+                function resetCount() {
+                    // Use a custom modal instead of alert/confirm
+                    showConfirmationModal("Are you sure you want to reset your Jaap count to 0? This action cannot be undone.", () => {
+                        count = 0;
+                        updateDisplay();
+                        saveCount(); // Immediate local save of 0
+                    });
+                }
+
+                // Custom Confirmation Modal (Replaces alert/confirm)
+                function showConfirmationModal(message, onConfirm) {
+                    const existingModal = document.getElementById('confirmationModal');
+                    if (existingModal) existingModal.remove();
+
+                    const modalHTML = `
+                <div id="confirmationModal" class="fixed inset-0 z-[60] flex items-center justify-center modal-backdrop">
+                    <div class="modal-content-bg w-11/12 max-w-xs p-6 rounded-xl shadow-2xl text-center">
+                        <p class="text-white text-lg mb-6">${message}</p>
+                        <div class="flex justify-center space-x-4">
+                            <button id="confirmBtn" class="btn-primary px-6 py-2 rounded-full font-bold">Yes, Reset</button>
+                            <button id="cancelBtn" class="btn-secondary px-6 py-2 rounded-full font-medium">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+                    document.body.insertAdjacentHTML('beforeend', modalHTML);
+                    const modal = document.getElementById('confirmationModal');
+
+                    document.getElementById('confirmBtn').addEventListener('click', () => {
+                        onConfirm();
+                        modal.remove();
+                    });
+                    document.getElementById('cancelBtn').addEventListener('click', () => {
+                        modal.remove();
+                    });
+                }
+
+
+                // Simulated Focus Generation (Unchanged)
+                const FOCUS_MESSAGES = [
+                    "Today's focus: **Gratitude.** Recall three blessings before performing Upasana.",
+                    "Today's focus: **Surrender.** Offer your worries at Bapu's feet and chant with a free mind.",
+                    "Today's focus: **Presence.** Be fully present in every Jaap. Let no thought distract you.",
+                    "Today's focus: **Love.** Meditate on Sadguru's unconditional love while you chant.",
+                    "Today's focus: **Service.** Dedicate your Upasana to the well-being of others.",
+                    "Today's focus: **Austerity.** Maintain silent reflection for 5 minutes after your Jaap."
+                ];
+
+                function generateFocus() {
+                    generateFocusButton.textContent = 'Generating...';
+                    generateFocusButton.disabled = true;
+
+                    setTimeout(() => {
+                        const randomIndex = Math.floor(Math.random() * FOCUS_MESSAGES.length);
+                        const focus = FOCUS_MESSAGES[randomIndex];
+                        focusMessage.innerHTML = focus.replace(/\*\*(.*?)\*\*/g, '<span class="text-[#FF7722] font-bold">$1</span>');
+
+                        generateFocusButton.textContent = 'Generate Focus';
+                        generateFocusButton.disabled = false;
+                    }, 1500); // 1.5 second simulated delay
+                }
+
+                // --- Event Listeners ---
+
+                // Jaap Counter Listeners
+                openJaapCounter.addEventListener('click', () => openModal(jaapModal));
+                closeModalButton.addEventListener('click', () => closeModal(jaapModal));
+                incrementButton.addEventListener('mousedown', (e) => {
+                    if (e.button === 0) incrementCount(e); // Only left click
+                });
+                incrementButton.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    incrementCount(e);
+                }, { passive: false }); // Use { passive: false } for preventDefault on touch
+                resetButton.addEventListener('click', resetCount);
+
+                // Daily Focus Listeners
+                openFocusModal.addEventListener('click', () => openModal(focusModal));
+                closeFocusModal.addEventListener('click', () => closeModal(focusModal));
+                generateFocusButton.addEventListener('click', generateFocus);
+
+                // Developer Modal Listeners
+                openDeveloperModal.addEventListener('click', () => openModal(developerModal));
+                closeDeveloperModal.addEventListener('click', () => closeModal(developerModal));
+
+                // Chalisa Modal Listeners
+                openChalisaModal.addEventListener('click', () => openModal(chalisaModal));
+                closeChalisaModal.addEventListener('click', () => closeModal(chalisaModal));
+
+                // Ramraksha Modal Listeners
+                openRamrakshaModal.addEventListener('click', () => openModal(ramrakshaModal));
+                closeRamrakshaModal.addEventListener('click', () => closeModal(ramrakshaModal));
+
+                // Hanuman Modal Listeners
+                openHanumanModal.addEventListener('click', () => openModal(hanumanModal));
+                closeHanumanModal.addEventListener('click', () => closeModal(hanumanModal));
+
+                // Panchakshar Modal Listeners
+                openPanchaksharModal.addEventListener('click', () => openModal(panchaksharModal));
+                closePanchaksharModal.addEventListener('click', () => closeModal(panchaksharModal));
+                // Global Keydown Listener for Jaap Counter (Space/Enter)
+                document.addEventListener('keydown', function (event) {
+                    if (!jaapModal.classList.contains('hidden')) {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            // Simulate a click event centered on the button for the ripple effect
+                            const rect = incrementButton.getBoundingClientRect();
+                            const simulatedEvent = {
+                                clientX: rect.left + rect.width / 2,
+                                clientY: rect.top + rect.height / 2,
+                            };
+                            incrementCount(simulatedEvent);
+                        }
+                    }
+                });
+
+                // Close modals if clicking outside the modal content
+                [jaapModal, developerModal, focusModal, chalisaModal, ramrakshaModal, hanumanModal, panchaksharModal].forEach(modal => {
+                    modal.addEventListener('click', function (event) {
+                        if (event.target === modal) {
+                            closeModal(modal);
+                        }
+                    });
+                });
+
+                // Initial Setup: Load the saved count when the app starts
+                loadCount();
+            </script>
+
+</body>
+
+</html>
